@@ -6,15 +6,13 @@
 #    By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 21:01:58 by ejafer            #+#    #+#              #
-#    Updated: 2022/03/24 21:07:53 by ejafer           ###   ########.fr        #
+#    Updated: 2022/03/25 12:19:52 by ejafer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	philo
 
-HDR		= 	
-
-NAMES	=	
+NAMES	=	philosophers ft_atoi ft_isdigit
 
 SRC_DIR		=	src/
 OBJ_DIR		=	obj/
@@ -33,7 +31,7 @@ MD			=	mkdir -p
 all: ${NAME}
 
 $(NAME): ${OBJ}
-			$(CC) $(CFLAGS) $(OBJ) -o ${NAME}
+			$(CC) $(CFLAGS) $(OBJ) -lpthread -o ${NAME}
 
 $(OBJ_DIR):
 			${MD} $(OBJ_DIR)

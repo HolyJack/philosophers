@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosopher.c                                      :+:      :+:    :+:   */
+/*   ft_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 21:02:01 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/24 21:06:19 by ejafer           ###   ########.fr       */
+/*   Created: 2022/03/25 12:07:06 by ejafer            #+#    #+#             */
+/*   Updated: 2022/03/25 12:08:09 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#ifndef FT_UTILS_H
+# define FT_UTILS_H
 
-int	main(int argc, char	**argv)
-{
-	return (0);
-}
+int	ft_atoi(const char *s);
+int	ft_isdigit(int c);
+
+#endif
