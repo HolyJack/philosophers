@@ -6,13 +6,16 @@
 #    By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 21:01:58 by ejafer            #+#    #+#              #
-#    Updated: 2022/03/25 12:19:52 by ejafer           ###   ########.fr        #
+#    Updated: 2022/03/26 00:59:32 by ejafer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	philo
 
-NAMES	=	philosophers ft_atoi ft_isdigit
+NAMES	=	philosophers	p_check_dead\
+			p_data			p_forks			p_info\
+			p_eat			p_think			p_sleep\
+			p_time			ft_atoi			ft_isdigit 
 
 SRC_DIR		=	src/
 OBJ_DIR		=	obj/
@@ -30,7 +33,7 @@ MD			=	mkdir -p
 
 all: ${NAME}
 
-$(NAME): ${OBJ}
+$(NAME): ${OBJ} Makefile
 			$(CC) $(CFLAGS) $(OBJ) -lpthread -o ${NAME}
 
 $(OBJ_DIR):

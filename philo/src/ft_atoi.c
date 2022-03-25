@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 12:05:02 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/25 12:22:43 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/25 23:53:21 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_atoi(const char *s)
 {
-	int		buf;
-	int		sign;
-	char	*str;
+	long long		buf;
+	long long		sign;
+	char			*str;
 
 	sign = 1;
 	str = (char *) s;
