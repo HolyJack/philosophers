@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:02:04 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/26 00:59:22 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/26 01:00:32 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct s_pinfo
 	long long	time_to_die;
 	long long	time_to_eat;
 	long long	time_to_sleep;
-	//long long	time_delay;
 }	t_pinfo;
 
 typedef struct s_data
