@@ -1,2 +1,4 @@
-/philo/obj/*
-/philobonus/obj/*
+philo/obj/
+philobonus/obj/
+tester/
+socrates/

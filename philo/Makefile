@@ -6,16 +6,17 @@
 #    By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 21:01:58 by ejafer            #+#    #+#              #
-#    Updated: 2022/03/26 00:59:32 by ejafer           ###   ########.fr        #
+#    Updated: 2022/03/26 13:39:42 by ejafer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	philo
 
-NAMES	=	philosophers	p_check_dead\
+NAMES	=	philosophers	p_check_dead	p_die\
 			p_data			p_forks			p_info\
 			p_eat			p_think			p_sleep\
-			p_time			ft_atoi			ft_isdigit 
+			p_time			ft_atoi			ft_isdigit\
+			p_usleep
 
 SRC_DIR		=	src/
 OBJ_DIR		=	obj/

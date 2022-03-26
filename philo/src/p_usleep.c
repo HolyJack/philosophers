@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_sleep.c                                          :+:      :+:    :+:   */
+/*   p_usleep.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/25 16:30:34 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/26 13:42:04 by ejafer           ###   ########.fr       */
+/*   Created: 2022/03/26 13:34:51 by ejafer            #+#    #+#             */
+/*   Updated: 2022/03/26 14:20:29 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	p_sleep(t_data *data)
+void	p_usleep(t_data *data, long long ms)
 {
-	printf("%lld %d is sleeping\n",
-		current_time_ms() - data->pinfo->time_start, data->id + 1);
-	release_forks(data);
-	p_usleep(data, data->pinfo->time_to_sleep);
+	const long long	start = current_time_ms();
+	long long		cur;
+
+	cur = current_time_ms();
+	while (ms > cur - start)
+	{
+		cur = current_time_ms();
+		checkdead(data);
+	}
 }

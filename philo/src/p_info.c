@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:18:24 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/26 00:42:50 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/26 12:54:12 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_pinfo	*pinfo_init(char **argv)
 	pinfo->time_to_eat = ft_atoi(argv[2]);
 	pinfo->time_to_sleep = ft_atoi(argv[3]);
 	if (argv[4])
-		pinfo->number_of_times_each_philosopher_must_eat = ft_atoi(argv[4]);
+		pinfo->times_each_philosopher_must_eat = ft_atoi(argv[4]);
 	else
-		pinfo->number_of_times_each_philosopher_must_eat = -1;
+		pinfo->times_each_philosopher_must_eat = -1;
 	return (pinfo);
 }

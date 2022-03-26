@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:30:40 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/26 00:42:45 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/26 12:24:47 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	p_think(t_data	*data)
 {
 	printf("%lld %d is thinking\n",
-		current_time_ms(), data->id + 1);
+		current_time_ms() - data->pinfo->time_start, data->id + 1);
 }
