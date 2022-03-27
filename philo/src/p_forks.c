@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:22:51 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/26 19:33:36 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/27 14:41:05 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 void	grab_forks(t_data *data)
 {
 	while (pthread_mutex_trylock(&(data->forks[data->l])))
-		p_usleep(data, 1);
+	{
+		usleep(100);
+		checkdead(data);
+	}
 	printf("%lld %d has taken a fork\n",
 		current_time_ms() - data->pinfo->time_start, data->id + 1);
 	while (pthread_mutex_trylock(&(data->forks[data->r])))
-		p_usleep(data, 1);
+	{
+		usleep(100);
+		checkdead(data);
+	}
 	printf("%lld %d has taken a fork\n",
 		current_time_ms() - data->pinfo->time_start, data->id + 1);
+	data->time_last_meal = current_time_ms();
 }
 
 void	release_forks(t_data *data)

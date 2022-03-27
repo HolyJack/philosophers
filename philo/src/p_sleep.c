@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:30:34 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/26 18:27:27 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/27 14:05:59 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	p_sleep(t_data *data)
 {
 	printf("%lld %d is sleeping\n",
 		current_time_ms() - data->pinfo->time_start, data->id + 1);
+	release_forks(data);
 	if (data->times_must_eat == 0)
 	{
 		data->times_must_eat -= 1;
@@ -25,6 +26,5 @@ void	p_sleep(t_data *data)
 			exit(0);
 		pthread_mutex_unlock(&data->m_pinfo);
 	}
-	release_forks(data);
 	p_usleep(data, data->pinfo->time_to_sleep);
 }

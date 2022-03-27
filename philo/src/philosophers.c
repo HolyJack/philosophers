@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:02:01 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/26 18:24:06 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/27 14:46:12 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	*philo(void *ptr_data)
 		usleep(data->pinfo->time_to_die * 1000);
 		p_die(current_time_ms() - data->pinfo->time_start, data->id);
 	}
+	if (data->id % 2)
+		p_usleep(data, data->pinfo->time_to_eat - 1);
 	while (1)
 	{
 		grab_forks(data);
@@ -47,17 +49,10 @@ void	threads_init(
 	threads = malloc(sizeof(pthread_t) * (pinfo->number_of_philosophers));
 	pinfo->time_start = current_time_ms();
 	i = -1;
-	while (++i * 2 < pinfo->number_of_philosophers)
+	while (++i < pinfo->number_of_philosophers)
 	{
-		data = data_init(i * 2, pinfo, forks, m_pinfo);
-		pthread_create(&threads[i * 2], NULL, philo, (void *) data);
-	}
-	usleep(1000);
-	i = -1;
-	while (++i * 2 + 1 < pinfo->number_of_philosophers)
-	{
-		data = data_init(i * 2 + 1, pinfo, forks, m_pinfo);
-		pthread_create(&threads[i * 2 + 1], NULL, philo, (void *) data);
+		data = data_init(i, pinfo, forks, m_pinfo);
+		pthread_create(&threads[i], NULL, philo, (void *) data);
 	}
 	i = -1;
 	while (++i < pinfo->number_of_philosophers)
