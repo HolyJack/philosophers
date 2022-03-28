@@ -6,14 +6,14 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 12:09:28 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/26 12:10:52 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/28 15:20:36 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	p_die(long long ms, int id)
+void	p_die(long long ms, t_data *data)
 {
-	printf("%lld %d died\n", ms, id + 1);
+	printf("%lld %d died\n", ms, data->id + 1);
 	exit(0);
 }

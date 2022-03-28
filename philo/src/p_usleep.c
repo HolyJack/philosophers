@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:34:51 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/27 14:25:54 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/28 17:37:27 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	p_usleep(t_data *data, long long ms)
 	cur = current_time_ms();
 	while (ms > cur - start)
 	{
-		usleep(100);
+		usleep(500);
 		cur = current_time_ms();
 		checkdead(data);
 	}
