@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_usleep.c                                         :+:      :+:    :+:   */
+/*   free_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/26 13:34:51 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/29 16:41:07 by ejafer           ###   ########.fr       */
+/*   Created: 2022/03/29 23:37:11 by ejafer            #+#    #+#             */
+/*   Updated: 2022/03/30 00:43:04 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	p_usleep(long long ms)
+void	free_info(t_info *info)
 {
-	const long long	start = p_current_time_ms();
-	long long		cur;
-
-	cur = p_current_time_ms();
-	while (ms > cur - start)
-	{
-		usleep(1000);
-		cur = p_current_time_ms();
-	}
+	sem_unlink(FORKS);
+	sem_unlink(LOCK_PRINT);
+	sem_unlink(LOCK_FORKS);
+	sem_unlink(LOCK_EAT);
+	sem_close(info->forks);
+	sem_close(info->lock_print);
+	sem_close(info->lock_forks);
+	sem_close(info->lock_eat);
+	free(info);
 }
