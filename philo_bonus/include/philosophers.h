@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:02:04 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/26 20:02:39 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/29 17:05:21 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_pinfo
 {
 	int			meals_finished;
 	int			number_of_philosophers;
-	int			times_each_philosopher_must_eat;
+	int			times_must_eat;
 	long long	time_start;
 	long long	time_to_die;
 	long long	time_to_eat;
