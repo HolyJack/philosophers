@@ -6,22 +6,21 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:34:51 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/28 17:37:27 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/29 16:41:07 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	p_usleep(t_data *data, long long ms)
+void	p_usleep(long long ms)
 {
-	const long long	start = current_time_ms();
+	const long long	start = p_current_time_ms();
 	long long		cur;
 
-	cur = current_time_ms();
+	cur = p_current_time_ms();
 	while (ms > cur - start)
 	{
-		usleep(500);
-		cur = current_time_ms();
-		checkdead(data);
+		usleep(1000);
+		cur = p_current_time_ms();
 	}
 }

@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_info.c                                           :+:      :+:    :+:   */
+/*   p_isvalid_inputs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/25 16:18:24 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/28 17:49:04 by ejafer           ###   ########.fr       */
+/*   Created: 2022/03/29 16:15:45 by ejafer            #+#    #+#             */
+/*   Updated: 2022/03/29 18:45:08 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
 #include "ft_utils.h"
 
-t_pinfo	*pinfo_init(char **argv)
+int	is_number(char *str)
 {
-	t_pinfo			*pinfo;
+	int	i;
 
-	pinfo = malloc(sizeof(t_pinfo) * 1);
-	pinfo->number_of_philosophers = ft_atoi(argv[0]);
-	pinfo->time_to_die = ft_atoi(argv[1]);
-	pinfo->time_to_eat = ft_atoi(argv[2]);
-	pinfo->time_to_sleep = ft_atoi(argv[3]);
-	if (argv[4])
-		pinfo->times_must_eat = ft_atoi(argv[4]);
-	else
-		pinfo->times_must_eat = -1;
-	return (pinfo);
+	i = -1;
+	while (str[++i])
+		if (!ft_isdigit(str[i]))
+			return (0);
+	return (1);
+}
+
+int	p_isvalid_inputs(int argc, char **argv)
+{
+	int	i;
+
+	i = -1;
+	if (argc != 4 && argc != 5)
+		return (0);
+	while (++i < argc)
+		if (!is_number(argv[i]))
+			return (0);
+	return (1);
 }

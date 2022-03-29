@@ -6,51 +6,42 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:22:51 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/28 17:14:24 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/29 18:44:58 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	grab_forks(t_data *data)
+void	p_free_forks(pthread_mutex_t *forks, int amount)
 {
-	pthread_mutex_lock(&data->grabing_forks);
-	/*
-	pthread_mutex_lock(&(data->forks[data->l]));
-	printf("%lld %d has taken a fork\n",
-		current_time_ms() - data->pinfo->time_start, data->id + 1);
-	while (pthread_mutex_trylock(&(data->forks[data->r])))
-	{
-		usleep(100);
-		checkdead(data);
-	}
-	printf("%lld %d has taken a fork\n",
-		current_time_ms() - data->pinfo->time_start, data->id + 1);
-	*/
-	while (pthread_mutex_trylock(&(data->forks[data->l])))
-	{
-		usleep(200);
-		checkdead(data);
-	}
-	printf("%lld %d has taken a fork\n",
-		current_time_ms() - data->pinfo->time_start, data->id + 1);
-	while (pthread_mutex_trylock(&(data->forks[data->r])))
-	{
-		usleep(200);
-		checkdead(data);
-	}
-	printf("%lld %d has taken a fork\n",
-		current_time_ms() - data->pinfo->time_start, data->id + 1);
-	pthread_mutex_unlock(&data->grabing_forks);
+	int	i;
+
+	i = -1;
+	while (++i < amount)
+		pthread_mutex_destroy(forks + i);
 }
 
-void	release_forks(t_data *data)
+void	p_grab_forks(t_data *data)
 {
-	pthread_mutex_unlock(&(data->forks[data->l]));
-	pthread_mutex_unlock(&(data->forks[data->r]));
+	pthread_mutex_lock(&data->locks->forkslock);
+	pthread_mutex_lock(&data->forks[data->left]);
+	pthread_mutex_lock(&data->forks[data->right]);
+	pthread_mutex_unlock(&data->locks->forkslock);
+	p_printstatus(data,
+		p_current_time_ms() - data->pinfo->time_start,
+		data->id + 1, "has taken a fork");
+	p_printstatus(data,
+		p_current_time_ms() - data->pinfo->time_start,
+		data->id + 1, "has taken a fork");
 }
 
-pthread_mutex_t	*forks_init(int amount)
+void	p_release_forks(t_data *data)
+{
+	pthread_mutex_unlock(&(data->forks[data->left]));
+	pthread_mutex_unlock(&(data->forks[data->right]));
+}
+
+pthread_mutex_t	*p_init_forks(int amount)
 {
 	int				i;
 	pthread_mutex_t	*forks;
