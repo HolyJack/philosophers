@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:02:01 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/30 21:36:12 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/30 22:32:48 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,19 @@ void	*checkdead(void *ptr_philo)
 	while (philo->times_must_eat)
 	{
 		usleep(1000);
-		if (!philo->times_must_eat)
-			return (NULL);
-		else
+		pthread_mutex_lock(&philo->time_last_meal_lock);
+		if (current_time_ms() - philo->time_last_meal
+			>= philo->info->time_to_die)
 		{
-			pthread_mutex_lock(&philo->time_last_meal_lock);
-			if (current_time_ms() - philo->time_last_meal
-				>= philo->info->time_to_die)
-			{
-				pthread_mutex_lock(&philo->info->printlock);
-				printf("%lld %d died\n",
-					current_time_ms() - philo->info->time_start, philo->id);
-				info = philo->info;
-				free_all_philos(info->philos, info->number_of_philosophers);
-				free_info(info);
-				exit(0);
-			}
-			pthread_mutex_unlock(&philo->time_last_meal_lock);
+			pthread_mutex_lock(&philo->info->printlock);
+			printf("%lld %d died\n",
+				current_time_ms() - philo->info->time_start, philo->id);
+			info = philo->info;
+			free_all_philos(info->philos, info->number_of_philosophers);
+			free_info(info);
+			exit(0);
 		}
+		pthread_mutex_unlock(&philo->time_last_meal_lock);
 	}
 	return (NULL);
 }

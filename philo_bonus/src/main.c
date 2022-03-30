@@ -6,11 +6,17 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 20:03:08 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/30 21:35:12 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/30 22:31:54 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	error(char *status)
+{
+	printf("Error: %s\n", status);
+	exit(0);
+}
 
 pid_t	init_philos(t_info *info, pid_t *child_pids)
 {
@@ -18,15 +24,15 @@ pid_t	init_philos(t_info *info, pid_t *child_pids)
 	pid_t	pid;
 
 	i = -1;
+	pid = 1;
 	while (++i < info->number_of_philosophers)
 	{
 		pid = fork();
 		if (pid < 0)
 		{
-			printf("Error: %s\n", "fork error");
 			free(child_pids);
 			free_info(info);
-			exit(0);
+			error("fork error");
 		}
 		else if (pid == 0)
 		{
@@ -56,12 +62,12 @@ void	wait_for_philos(pid_t pid, t_info *info, pid_t *child_pids)
 		while (1)
 		{
 			pid = waitpid(-1, &status, 0);
-			i = -1;
-			while (status && ++i < info->number_of_philosophers)
-				kill(child_pids[i], SIGTERM);
-			status = 0;
 			if (errno == ECHILD)
 				break ;
+			i = -1;
+			while (++i < info->number_of_philosophers)
+				kill(child_pids[i], SIGTERM);
+			status = 0;
 		}
 		free(child_pids);
 		free_info(info);

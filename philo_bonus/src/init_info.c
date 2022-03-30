@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:18:24 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/30 18:37:58 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/30 21:56:04 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ t_info	*init_info(char **argv)
 	sem_unlink(FORKS);
 	sem_unlink(LOCK_PRINT);
 	sem_unlink(LOCK_FORKS);
-	sem_unlink(LOCK_EAT);
+	sem_unlink(ALL_FINISHED);
 	info->forks = sem_open(FORKS, O_CREAT | O_EXCL, 0644,
 			info->number_of_philosophers);
 	info->lock_forks = sem_open(LOCK_FORKS, O_CREAT | O_EXCL, 0644, 1);
 	info->lock_print = sem_open(LOCK_PRINT, O_CREAT | O_EXCL, 0644, 1);
+	info->all_finished = sem_open(ALL_FINISHED, O_CREAT | O_EXCL, 0644,
+			info->number_of_philosophers);
 	if (argv[4])
 		info->times_must_eat = ft_atoi(argv[4]);
 	else
