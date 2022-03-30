@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 20:03:08 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/30 01:02:13 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/30 18:24:48 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ pid_t	init_philos(t_info *info, pid_t *child_pids)
 void	wait_for_philos(pid_t pid, t_info *info, pid_t *child_pids)
 {
 	int	i;
+	int status;
 
 	if (pid == 0)
 	{
@@ -52,13 +53,14 @@ void	wait_for_philos(pid_t pid, t_info *info, pid_t *child_pids)
 	}
 	else if (pid > 0)
 	{
-		pid = waitpid(-1, NULL, 0);
-		i = -1;
-		while (++i < info->number_of_philosophers)
-			kill(child_pids[i], SIGTERM);
+		
 		while (1)
 		{
-			pid = waitpid(-1, NULL, 0);
+			pid = waitpid(-1, &status, 0);
+			i = -1;
+			while (status && ++i < info->number_of_philosophers)
+				kill(child_pids[i], SIGTERM);
+			status = 0;
 			if (errno == ECHILD)
 				break ;
 		}

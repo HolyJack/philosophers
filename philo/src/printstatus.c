@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_time.c                                           :+:      :+:    :+:   */
+/*   printstatus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/25 16:15:42 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/28 23:27:21 by ejafer           ###   ########.fr       */
+/*   Created: 2022/03/28 22:50:20 by ejafer            #+#    #+#             */
+/*   Updated: 2022/03/30 20:01:47 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long long	p_current_time_ms(void)
+void	printstatus(t_philo *philo, char *status)
 {
-	struct timeval	time;
-	long long		ms;
-
-	gettimeofday(&time, NULL);
-	ms = time.tv_sec * 1000 + time.tv_usec / 1000;
-	return (ms);
+	pthread_mutex_lock(&philo->info->printlock);
+	printf("%lld %d %s\n",
+		current_time_ms() - philo->info->time_start, philo->id, status);
+	pthread_mutex_unlock(&philo->info->printlock);
 }

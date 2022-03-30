@@ -6,7 +6,7 @@
 #    By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 21:01:58 by ejafer            #+#    #+#              #
-#    Updated: 2022/03/30 00:22:00 by ejafer           ###   ########.fr        #
+#    Updated: 2022/03/30 21:30:01 by ejafer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(NAMES)))
 D_FILES		=	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(NAMES)))
 
 CC			=	cc
-CFLAGS		=	
+CFLAGS		=	-Wall -Wextra -Werror -O3
 AR			=   ar rcs
 
 MD			=	mkdir -p

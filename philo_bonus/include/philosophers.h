@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:02:04 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/30 01:01:17 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/30 18:37:13 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_info
 	sem_t		*forks;
 	sem_t		*lock_forks;
 	sem_t		*lock_print;
-	sem_t		*lock_eat;
+	sem_t		lock_eat;
 	pthread_t	deathstatus;
 }	t_info;
 

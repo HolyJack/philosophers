@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:02:04 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/29 18:46:12 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/30 21:21:17 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,57 +18,54 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-typedef struct s_pinfo
-{
-	int			number_of_philosophers;
-	int			times_must_eat;
-	long long	time_start;
-	long long	time_to_die;
-	long long	time_to_eat;
-	long long	time_to_sleep;
-}	t_pinfo;
+//extern struct t_philo;
+typedef struct s_philo t_philo;
 
-typedef struct s_locks
+typedef struct s_info
 {
+	int				number_of_philosophers;
+	int				times_must_eat;
+	long long		time_start;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	forkslock;
 	pthread_mutex_t	printlock;
-}	t_locks;
+	t_philo			**philos;
+	pthread_t		*threads;
+	
+}	t_info;
 
-typedef struct s_data
+
+typedef struct s_philo
 {
+	t_info			*info;
 	int				id;
 	int				left;
 	int				right;
 	int				times_must_eat;
 	long long		time_last_meal;
-	t_pinfo			*pinfo;
-	t_locks			*locks;
-	pthread_mutex_t	*forks;
 	pthread_mutex_t	time_last_meal_lock;
-}	t_data;
+}	t_philo;
 
-t_data			*p_init_data(int n, t_pinfo *pinfo,
-					pthread_mutex_t *forks, t_locks *locks);
-t_pinfo			*p_init_info(char **argv);
-t_locks			*p_init_locks(void);
-pthread_mutex_t	*p_init_forks(int amount);
-int				p_isvalid_inputs(int argc, char **argv);
 
-void			p_free_forks(pthread_mutex_t *forks, int amount);
+void			*philosopher(void *ptr_philo);
 
-void			p_sleep(t_data *data);
-void			p_eat(t_data *data);
-void			p_think(t_data *data);
-void			p_die(long long ms, t_data *data);
-void			p_grab_forks(t_data *data);
-void			p_release_forks(t_data *data);
+t_info			*init_info(char **argv);
+t_philo			*init_philo(int n, t_info *info);
+pthread_mutex_t	*init_forks(int amount);
 
-long long		p_current_time_ms(void);
-long long		p_passed_time_ms(long long start);
-void			*p_checkdead(void *ptr_data);
-void			p_usleep(long long mcs);
-void			p_printstatus(t_data *data,
-					long long timestamp,
-					int id, char *status);
+void			grab_forks(t_philo *philo);
+void			release_forks(t_philo *philo);
+void			printstatus(t_philo *philo, char *status);
+
+void			free_info(t_info *info);
+void			free_philo(t_philo *philo);
+void			free_all_philos(t_philo **philos, int amount);
+void			free_forks(pthread_mutex_t *forks, int amount);
+
+long long		current_time_ms(void);
+void			philo_usleep(long long ms);
 
 #endif

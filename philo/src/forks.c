@@ -1,47 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_forks.c                                          :+:      :+:    :+:   */
+/*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:22:51 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/29 18:44:58 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/30 20:26:41 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	p_free_forks(pthread_mutex_t *forks, int amount)
+void	grab_forks(t_philo *philo)
 {
-	int	i;
-
-	i = -1;
-	while (++i < amount)
-		pthread_mutex_destroy(forks + i);
+	pthread_mutex_lock(&philo->info->forkslock);
+	pthread_mutex_lock(&philo->info->forks[philo->left]);
+	pthread_mutex_lock(&philo->info->forks[philo->right]);
+	pthread_mutex_unlock(&philo->info->forkslock);
+	printstatus(philo, "has taken a fork");
+	printstatus(philo, "has taken a fork");
 }
 
-void	p_grab_forks(t_data *data)
+void	release_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&data->locks->forkslock);
-	pthread_mutex_lock(&data->forks[data->left]);
-	pthread_mutex_lock(&data->forks[data->right]);
-	pthread_mutex_unlock(&data->locks->forkslock);
-	p_printstatus(data,
-		p_current_time_ms() - data->pinfo->time_start,
-		data->id + 1, "has taken a fork");
-	p_printstatus(data,
-		p_current_time_ms() - data->pinfo->time_start,
-		data->id + 1, "has taken a fork");
+	pthread_mutex_unlock(&(philo->info->forks[philo->left]));
+	pthread_mutex_unlock(&(philo->info->forks[philo->right]));
 }
 
-void	p_release_forks(t_data *data)
-{
-	pthread_mutex_unlock(&(data->forks[data->left]));
-	pthread_mutex_unlock(&(data->forks[data->right]));
-}
-
-pthread_mutex_t	*p_init_forks(int amount)
+pthread_mutex_t	*init_forks(int amount)
 {
 	int				i;
 	pthread_mutex_t	*forks;
@@ -51,4 +38,14 @@ pthread_mutex_t	*p_init_forks(int amount)
 	while (++i < amount)
 		pthread_mutex_init(&forks[i], NULL);
 	return (forks);
+}
+
+void	free_forks(pthread_mutex_t *forks, int amount)
+{
+	int	i;
+
+	i = -1;
+	while (++i < amount)
+		pthread_mutex_destroy(&forks[i]);
+	free(forks);
 }
