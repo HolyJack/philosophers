@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:02:04 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/30 21:21:17 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/30 21:33:59 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-//extern struct t_philo;
-typedef struct s_philo t_philo;
+typedef struct s_philo	t_philo;
 
 typedef struct s_info
 {
@@ -34,9 +33,7 @@ typedef struct s_info
 	pthread_mutex_t	printlock;
 	t_philo			**philos;
 	pthread_t		*threads;
-	
 }	t_info;
-
 
 typedef struct s_philo
 {
@@ -48,7 +45,6 @@ typedef struct s_philo
 	long long		time_last_meal;
 	pthread_mutex_t	time_last_meal_lock;
 }	t_philo;
-
 
 void			*philosopher(void *ptr_philo);
 
