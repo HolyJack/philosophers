@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 21:02:01 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/30 22:32:48 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/31 01:05:28 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	philo_eat(t_philo *philo)
 	philo->time_last_meal = current_time_ms();
 	pthread_mutex_unlock(&philo->time_last_meal_lock);
 	printstatus(philo, "is eating");
+	philo_usleep(philo->info->time_to_eat);
 	if (philo->times_must_eat > 0)
 		philo->times_must_eat--;
-	philo_usleep(philo->info->time_to_eat);
 }
 
 void	philo_sleep(t_philo *philo)
@@ -70,12 +70,10 @@ void	*philosopher(void *ptr_philo)
 
 	philo = (t_philo *) ptr_philo;
 	pthread_mutex_init(&philo->time_last_meal_lock, NULL);
-	pthread_mutex_lock(&philo->time_last_meal_lock);
 	philo->time_last_meal = current_time_ms();
-	pthread_mutex_unlock(&philo->time_last_meal_lock);
 	pthread_create(&deatstatus, NULL, checkdead, (void *) philo);
 	pthread_detach(deatstatus);
-	philo_usleep(philo->info->time_to_eat * (philo->id & 1) - 10);
+	philo_usleep(philo->info->time_to_eat * ((philo->id - 1) & 1) - 10);
 	while (philo->times_must_eat)
 	{
 		philo_eat(philo);

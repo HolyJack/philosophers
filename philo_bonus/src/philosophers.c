@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 22:44:04 by ejafer            #+#    #+#             */
-/*   Updated: 2022/03/30 22:19:01 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/03/31 01:07:25 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	philosopher(t_info *info)
 	sem_post(&info->lock_eat);
 	pthread_create(&info->deathstatus, NULL, checkdead, (void *) info);
 	pthread_detach(info->deathstatus);
-	philo_usleep(info->time_to_eat * (info->id & 1) - 1);
+	philo_usleep(info->time_to_eat * ((info->id - 1) & 1) - 5);
 	while (val > 0)
 	{
 		philo_eat(info);
